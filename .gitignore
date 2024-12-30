@@ -1,0 +1,9 @@
+.metadata
+*.cproject
+*.project
+STM32F302R8TX_FLASH.ld
+*/Startup/
+*/.settings/
+*/Src/syscalls.c
+*/Src/sysmem.c
+*/Debug/
