@@ -2,8 +2,12 @@
 #ifndef INC_STM32F302R8_H_
 #define INC_STM32F302R8_H_
 
+#include<stdint.h>
+
+#define __vo volatile
+
 /*
- *  Base addresses of Flash and SRAM Memories
+ * Base addresses of Flash and SRAM Memories
  */
 
 #define FLASH_BASEADDR					0x08000000U // Base address of flash memory found in datasheet/RM
@@ -64,5 +68,55 @@
 #define EXTI_BASEADDR                   (APB2PERIPH_BASE + 0x0400)
 #define USART1_BASEADDR                 (APB2PERIPH_BASE + 0x3800)
 #define SYSCFG_BASEADDR                 APB2PERIPH_BASE
+
+/**********************Peripheral Register Definition Structures***********************/
+
+typedef struct {
+    __vo uint32_t MODER;     // GPIO port mode register,                 Offset=0x00
+    __vo uint32_t OTYPER;    // GPIO port output type register,          Offset=0x04
+    __vo uint32_t OSPEEDR;   // GPIO port output speed register,         Offset=0x08
+    __vo uint32_t PUPDR;     // GPIO port pull-up/pull-down register,    Offset=0x0C
+    __vo uint32_t IDR;       // GPIO port input data register,           Offset=0x10
+    __vo uint32_t ODR;       // GPIO port output data register,          Offset=0x14
+    __vo uint32_t BSRR;      // GPIO port bit set/reset register,        Offset=0x18
+    __vo uint32_t LCKR;      // GPIO port configuration lock register,   Offset=0x1C
+
+    /*
+     * GPIO alternate function low/high register
+     * AFR[0] : low,    Offset=0x20
+     * AFR[1] : high,   Offset=0x24
+     */
+    __vo uint32_t AFR[2];
+} GPIO_RegDef_t;
+
+typedef struc {
+    __vo uint32_t CR;           // Clock control register,                  Offset=0x00
+    __vo uint32_t CFGR;         // Clock configuration register,            Offset=0x04
+    __vo uint32_t CIR;          // Clock interrupt register,                Offset=0x08
+    __vo uint32_t APB2RSTR;     // APB2 peripheral reset register,          Offset=0x0C
+    __vo uint32_t APB1RSTR;     // APB1 peripheral reset register,          Offset=0x10
+    __vo uint32_t AHBENR;       // AHB peripheral clock enable register,    Offset=0x14
+    __vo uint32_t APB2ENR;      // APB2 peripheral clock enable register,   Offset=0x18
+    __vo uint32_t APB1ENR;      // APB1 peripheral clock enable register,   Offset=0x1C
+    __vo uint32_t BDCR;         // RTC domain control register,             Offset=0x20
+    __vo uint32_t CSR;          // Control/status register,                 Offset=0x24
+    __vo uint32_t AHBRSTR;      // AHB peripheral reset register,           Offset=0x28
+    __vo uint32_t CFGR2;        // Clock configuration register 2,          Offset=0x2C
+    __vo uint32_t CFGR3;        // Clock configuration register 3,          Offset=0x30
+} RCC_RegDef_t;
+
+/*
+ * GPIO Peripheral Definitions with GPIO_RegDef_t type
+ */
+#define GPIOA                           ((GPIO_RegDef_t*) GPIOA_BASEADDR)
+#define GPIOB                           ((GPIO_RegDef_t*) GPIOB_BASEADDR)
+#define GPIOC                           ((GPIO_RegDef_t*) GPIOC_BASEADDR)
+#define GPIOD                           ((GPIO_RegDef_t*) GPIOD_BASEADDR)
+#define GPIOF                           ((GPIO_RegDef_t*) GPIOF_BASEADDR)
+
+/*
+ * RCC Peripheral Definition with RCC_RegDef_t type
+ */
+#define RCC                             ((RCC_RegDef_t*) RCC_BASEADDR)
 
 #endif /* INC_STM32F302R8_H_ */
