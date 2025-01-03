@@ -164,4 +164,12 @@ typedef struct {
 // Clock Enable Macros for SYSCFG Peripheral
 #define SYSCFG_PCLK_DI()                (RCC->APB2ENR &= ~(1<<0))
 
+// Other Macros
+#define ENABLE                          1
+#define DISABLE                         0
+#define SET                             ENABLE
+#define RESET                           DISABLE
+#define GPIO_PIN_SET                    SET
+#define GPIO_PIN_RESET                  RESET
+
 #endif /* INC_STM32F302R8_H_ */
