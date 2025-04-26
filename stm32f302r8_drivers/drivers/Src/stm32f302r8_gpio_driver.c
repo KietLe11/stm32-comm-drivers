@@ -123,8 +123,20 @@ uint16_t GPIO_ReadFromInputPort(GPIO_RegDef_t *pGPIOxBaseAddr) {
     return value;
 }
 
-void GPIO_WriteToOutputPin(GPIO_RegDef_t *pGPIOxBaseAddr,  uint8_t PinNumber, uint8_t outputData);
-void GPIO_WriteToOutputPort(GPIO_RegDef_t *pGPIOxBaseAddr, uint16_t outputData);
+void GPIO_WriteToOutputPin(GPIO_RegDef_t *pGPIOxBaseAddr,  uint8_t PinNumber, uint8_t outputData) {
+    if (PinNumber == GPIO_PIN_SET) {
+        // Write 1 to output of corresponding port and pin
+        pGPIOxBaseAddr->ODR |= (1 << PinNumber);
+    } else {
+        // Write 0
+        pGPIOxBaseAddr->ODR &= ~(1 << PinNumber);
+    }
+}
+
+void GPIO_WriteToOutputPort(GPIO_RegDef_t *pGPIOxBaseAddr, uint16_t outputData) {
+    pGPIOxBaseAddr->ODR = outputData;
+}
+
 void GPIO_ToggleOutputPin(GPIO_RegDef_t *pGPIOxBaseAddr,  uint8_t PinNumber);
 
 // IRQ Config and ISR Handling
